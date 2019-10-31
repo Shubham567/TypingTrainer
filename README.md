@@ -1,2 +1,2 @@
 # TypingTrainer
-Cool Simple typing trainer built in python
+Cool Simple command line typing trainer built in Python3.
