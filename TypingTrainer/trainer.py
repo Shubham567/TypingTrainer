@@ -6,6 +6,9 @@ import os
 attempts = 0
 accuracySum = 0
 cpmSum = 0
+
+score = 0
+
 print("\nTyping Trainer by SS7 v 0.1 \n")
 while True:
     attempts = attempts + 1
@@ -19,9 +22,9 @@ while True:
         typeStr = input()
     except (KeyboardInterrupt, SystemExit):
         if attempts < 2:
-            print("  Interrupted. Not enough data to show average.")
+            print("\n\t\tInterrupted.\nNot enough data to show results.")
         else:
-            print("  Average-Accuracy: " + str(accuracySum / (attempts - 1)) + " Average-CPM:" + str(int(cpmSum / (attempts - 1))))
+            print("\n\t\tTerminated!\n Your Scrore:"+str(int(score))+"\n Average-Accuracy: " + str(accuracySum / (attempts - 1)) + "\n Average Accurate CPM:" + str(int(cpmSum / (attempts - 1))))
         exit(0)
 
     afterTime = time.time() * 1000
@@ -30,7 +33,10 @@ while True:
 
     accuracy, charPerMin = generator.getAccuracy(testStr, typeStr, timeElapsed)
     accuracySum = accuracySum + accuracy
-    cpmSum = cpmSum + charPerMin
+    cpmSum = cpmSum + charPerMin * accuracy/100
+    score += attempts * charPerMin * accuracy/100
+
+    generator.logData(testStr,typeStr,accuracy,charPerMin,attempts,score)
 
     if attempts % common.clearScreen == 0:
         os.system("clear")
