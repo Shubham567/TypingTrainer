@@ -34,11 +34,11 @@ while True:
     accuracy, charPerMin = generator.getAccuracy(testStr, typeStr, timeElapsed)
     accuracySum = accuracySum + accuracy
     cpmSum = cpmSum + charPerMin * accuracy/100
-    score += attempts * charPerMin * accuracy/100
+    score += charPerMin * accuracy/100
 
     generator.logData(testStr,typeStr,accuracy,charPerMin,attempts,score)
 
-    if attempts % common.clearScreen == 0:
+    if attempts % common.clearScreen == 0 and common.screenClearOn is True:
         os.system("clear")
 
     print("\nAccuracy: " + str(accuracy) + "% Speed: " + str(int(charPerMin)) + "cpm\n")
